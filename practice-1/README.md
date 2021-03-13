@@ -21,7 +21,7 @@ Exercise using precompiled Redux build.
 First of all, this exercise was made using Portuguese language.
 Here is the words not translated:
 
-**aula/aulas** = class/classes/lesson/lessons
+**aula/aulas** = class/classes/lesson/lessons<br>
 **aluno** = student
 
 Using Redux (using Immer or not);
