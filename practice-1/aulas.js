@@ -33,13 +33,13 @@ const aulasReducer = immer.produce((state, action) => {
 	switch (action.type) {
 		case COMPLETAR_AULA:
 			const index = state.findIndex((s) => s.id === action.payload);
-			state[index].completa = true;
+			if (!isNaN(index) && state[index]) state[index].completa = true;
 			break;
 		case COMPLETAR_CURSO:
-			state.map((s) => (s.completa = true));
+			state.forEach((s) => (s.completa = true));
 			break;
 		case RESETAR_CURSO:
-			state.map((s) => (s.completa = false));
+			state.forEach((s) => (s.completa = false));
 			break;
 	}
 }, initialState);
