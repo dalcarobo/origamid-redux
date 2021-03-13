@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Redux - Origamid - Practice 1</title>
+		<script src="./redux.min.js"></script>
+		<script src="./immer.umd.production.min.js"></script>
+	</head>
+
+	<body>
+		<h1 id="aluno"></h1>
+		<h2 id="email"></h2>
+		<h2 id="dias-restantes"></h2>
+		<h2 id="aulas-completas"></h2>
+
+		<script type="module">
+			import {
+				incrementarTempo,
+				reduzirTempo,
+				modificarEmail,
+			} from './aluno.js';
+			import { completarAula, completarCurso, resetarCurso } from './aulas.js';
+			import store from './redux-config.js';
+
+			const render = () => {
+				const { aluno, aulas } = store.getState();
+				const alunoEl = document.getElementById('aluno');
+				const emailEl = document.getElementById('email');
+				const diasEl = document.getElementById('dias-restantes');
+				const aulasEl = document.getElementById('aulas-completas');
+
+				aulasEl.innerText = `Aulas completas: ${
+					aulas.filter((aula) => aula.completa === true).length
+				}`;
+
+				alunoEl.innerText = aluno.nome;
+				emailEl.innerText = aluno.email;
+				diasEl.innerText = `Dias de curso restantes: ${aluno.diasRestantes}`;
+			};
+
+			render();
+			store.subscribe(render);
+
+			store.dispatch(modificarEmail('gabriel@teste.com'));
+			store.dispatch(resetarCurso());
+			store.dispatch(completarAula(3));
+			store.dispatch(completarCurso());
+			store.dispatch(reduzirTempo());
+			store.dispatch(incrementarTempo());
+			store.dispatch(incrementarTempo());
+		</script>
+	</body>
+</html>
